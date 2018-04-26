@@ -5,7 +5,7 @@
     "slug": "react-native-webview-leaflet",
     "privacy": "unlisted",
     "sdkVersion": "26.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": ["ios", "android", "windows"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

@@ -3,11 +3,9 @@ import { View, StyleSheet, ActivityIndicator, Text, WebView, Alert, Platform, To
 import PropTypes from 'prop-types';
 import renderIf from 'render-if';
 import Button from './Button';
-import Expo from 'expo';
 
 const INDEX_FILE = require(`./assets/dist/index.html`);
 const MESSAGE_PREFIX = 'react-native-webview-leaflet';
-// const index = Expo.Asset.fromModule(require('./assets/dist/index.html')).uri
 
 export default class WebViewLeaflet extends React.Component {
 	constructor(props) {

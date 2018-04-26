@@ -31,12 +31,12 @@
     "leaflet": "^1.3.1",
     "leaflet.markercluster": "^1.3.0",
     "prop-types": "^15.6.0",
-    "util": "^0.10.3",
-    "render-if": "^0.1.1",
-    "expo": "^26.0.0",
     "react": "16.3.0-alpha.1",
     "react-dom": "^16.3.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
+    "react-native-device-info": "^0.21.5",
+    "render-if": "^0.1.1",
+    "util": "^0.10.3"
   },
   "devDependencies": {
     "assert": "^1.4.1",
@@ -75,6 +75,7 @@
     "jest": "^22.4.3",
     "jest-css-modules": "^1.1.0",
     "jest-enzyme": "^6.0.0",
+    "jest-expo": "^26.0.0",
     "jsdom": "^11.7.0",
     "mocha": "^4.1.0",
     "react-addons-test-utils": "^15.6.2",
@@ -83,8 +84,7 @@
     "style-loader": "^0.19.1",
     "webpack": "^4.5.0",
     "webpack-clear-console": "^1.0.3",
-    "webpack-dev-server": "^2.10.1",
-    "jest-expo": "^26.0.0"
+    "webpack-dev-server": "^2.10.1"
   },
   "jest": {
     "preset": "jest-expo",

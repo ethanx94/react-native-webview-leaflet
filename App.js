@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform, Alert } from 'react-native';
-import { Constants, Location, Permissions } from 'expo';
+import { StyleSheet, Text, View, Platform, Alert, PermissionsAndroid } from 'react-native';
 import WebViewLeaflet from './WebViewLeaflet';
+import DeviceInfo from 'react-native-device-info';
 
 const emoji = ['😴', '😄', '😃', '⛔', '🎠', '🚓', '🚇'];
 const animations = ['bounce', 'fade', 'pulse', 'jump', 'waggle', 'spin'];
@@ -24,7 +24,7 @@ export default class App extends React.Component {
   };
 
   componentWillMount() {
-    if (Platform.OS === 'android' && !Constants.isDevice) {
+    if (Platform.OS === 'android' && DeviceInfo.isEmulator()) {
       this.setState({
         errorMessage:
           'Oops, this will not work on Sketch in an Android emulator. Try it on your device!'
@@ -35,26 +35,34 @@ export default class App extends React.Component {
   }
 
   _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied'
-      });
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+        if (!granted) {
+          return this.setState({
+            errorMessage: 'Permission to access location was denied'
+          });
+        } 
+      } catch (err) {
+        return console.warn(err);
+      }
     }
 
-    let location = await Location.getCurrentPositionAsync({});
-    let locations = this.createRandomMarkers(location.coords, 20, 10000);
+    navigator.geolocation.watchPosition(async (location) => {
+      // let location = await Location.getCurrentPositionAsync({});
+      let locations = this.createRandomMarkers(location.coords, 20, 10000);
 
-    // center random markers around Washington DC
-    // let locations = this.createRandomMarkers({latitude: 38.889931, longitude: -77.009003}, 20, 10000);
+      // center random markers around Washington DC
+      // let locations = this.createRandomMarkers({latitude: 38.889931, longitude: -77.009003}, 20, 10000);
 
-    this.setState({
-      locations,
-      location,
+      this.setState({
+        locations,
+        location,
 
-      // center around Washington DC
-      // coords: [38.889931, -77.009003]
-      coords: [location.coords.latitude, location.coords.longitude]
+        // center around Washington DC
+        // coords: [38.889931, -77.009003]
+        coords: [location.coords.latitude, location.coords.longitude]
+      });
     });
   };
 

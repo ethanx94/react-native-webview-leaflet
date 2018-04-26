@@ -18,7 +18,7 @@ module.exports = {
 		main: './web/component.js'
 	},
 	output: {
-		path: path.join(__dirname, './build'),
+		path: path.join(__dirname, './assets/dist'),
 		filename: '[name].bundle.js'
 	},
 	mode: 'development',
