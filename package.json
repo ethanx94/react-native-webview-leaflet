@@ -4,8 +4,8 @@
   "name": "react-native-webview-leaflet",
   "version": "0.2.79",
   "scripts": {
-    "prod": "npm run clean && SET NODE_ENV=PROD && webpack",
-    "dev": "npm run clean && SET NODE_ENV=DEV && webpack -p",
+    "prod": "npm run clean && set NODE_ENV=PROD && webpack -p",
+    "dev": "npm run clean && set NODE_ENV=DEV && webpack",
     "clean": "rimraf ./dist",
     "test": "jest"
   },
@@ -17,7 +17,6 @@
   "keywords": [
     "react-native",
     "leaflet",
-    "expo",
     "webview"
   ],
   "author": "Reginald Johnson",
@@ -31,9 +30,9 @@
     "leaflet": "^1.3.1",
     "leaflet.markercluster": "^1.3.0",
     "prop-types": "^15.6.0",
-    "react": "16.3.0-alpha.1",
+    "react": "16.3.1",
     "react-dom": "^16.3.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
+    "react-native": "0.55",
     "react-native-device-info": "^0.21.5",
     "render-if": "^0.1.1",
     "util": "^0.10.3"
@@ -84,6 +83,7 @@
     "style-loader": "^0.19.1",
     "webpack": "^4.5.0",
     "webpack-clear-console": "^1.0.3",
+    "webpack-cli": "^2.1.2",
     "webpack-dev-server": "^2.10.1"
   },
   "jest": {

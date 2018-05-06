@@ -1,3 +1,4 @@
-import WebViewLeaflet from "./WebViewLeaflet";
+import { AppRegistry } from 'react-native';
+import App from './App';
 
-module.exports = WebViewLeaflet;
+AppRegistry.registerComponent('reactnativewebviewleaflet', () => App);

@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccccff',
     display: 'flex'
   },
-  statusBar: {
-    height: Constants.statusBarHeight
-  }
+  // statusBar: {
+  //   height: Constants.statusBarHeight
+  // }
 });

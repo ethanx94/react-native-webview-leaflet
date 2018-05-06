@@ -1,27 +1,26 @@
 {
-  "expo": {
-    "name": "react-native-webview-leaflet",
-    "description": "This webview containing a clickable Leaflet map.",
-    "slug": "react-native-webview-leaflet",
-    "privacy": "unlisted",
-    "sdkVersion": "26.0.0",
-    "platforms": ["ios", "android", "windows"],
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
-    },
-    "packagerOpts": {
-      "assetExts": ["html"]
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  }
+  "name": "reactnativewebviewleaflet",
+  "displayName": "reactnativewebviewleaflet",
+  "description": "This webview containing a clickable Leaflet map.",
+  "slug": "react-native-webview-leaflet",
+  "privacy": "unlisted",
+  "sdkVersion": "26.0.0",
+  "platforms": ["ios", "android", "windows"],
+  "version": "1.0.0",
+  "orientation": "portrait",
+  "icon": "./assets/icon.png",
+  "splash": {
+    "image": "./assets/splash.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#ffffff"
+  },
+  "ios": {
+    "supportsTablet": true
+  },
+  "packagerOpts": {
+    "assetExts": ["html"]
+  },
+  "assetBundlePatterns": [
+    "**/*"
+  ]
 }
