@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform, Alert, PermissionsAndroid } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, Platform, Alert, PermissionsAndroid } from 'react-native';
 import WebViewLeaflet from './WebViewLeaflet';
 import DeviceInfo from 'react-native-device-info';
 
@@ -24,14 +24,8 @@ export default class App extends React.Component {
   };
 
   componentWillMount() {
-    if (Platform.OS === 'android' && DeviceInfo.isEmulator()) {
-      this.setState({
-        errorMessage:
-          'Oops, this will not work on Sketch in an Android emulator. Try it on your device!'
-      });
-    } else {
-      this._getLocationAsync();
-    }
+    // Removed emulator detection
+    this._getLocationAsync();
   }
 
   _getLocationAsync = async () => {
@@ -140,18 +134,15 @@ export default class App extends React.Component {
   };
 
   getMapCallback=(map)=>{
-    console.log('getMapCallback received : ', map)
-    ;
+    console.log('getMapCallback received : ', map);
   }
 
   onZoomEnd=(event)=>{
-    console.log('onZoomEnd received : ', event)
-    ;
+    console.log('onZoomEnd received : ', event);
   }
 
   onMoveEnd=(event)=>{
-    console.log('onMoveEnd received : ', event)
-    ;
+    console.log('onMoveEnd received : ', event);
   }
 
   centerMap = (parkInitials) => {
@@ -171,7 +162,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.statusBar} />
         <Text
           style={{
@@ -207,7 +198,7 @@ export default class App extends React.Component {
           <Button onPress={()=>this.centerMap('bg')} text={'🍺'} />
           <Button onPress={()=>this.centerMap('kd')} text={'👑'} />
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -218,7 +209,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccccff',
     display: 'flex'
   },
-  // statusBar: {
-  //   height: Constants.statusBarHeight
-  // }
 });
