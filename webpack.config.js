@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 // the path(s) that should be cleaned
@@ -88,18 +87,6 @@ module.exports = {
 			template: './web/leafletReact.html',
 			inject: 'body'
 		}),
-
-		/* new webpack.optimize.UglifyJsPlugin({
-			// Eliminate comments
-			comments: false,
-			// Compression specific options
-			compress: {
-				// remove warnings
-				warnings: false,
-				// Drop console statements
-				drop_console: true
-			}
-		}), */
 		new HtmlWebpackInlineSourcePlugin()
 	]
 };

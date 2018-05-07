@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, SafeAreaView, View, Platform, Alert, PermissionsAndroid } from 'react-native';
 import WebViewLeaflet from './WebViewLeaflet';
-import DeviceInfo from 'react-native-device-info';
+import testLocations from './web/testLocations';
 
 const emoji = ['😴', '😄', '😃', '⛔', '🎠', '🚓', '🚇'];
 const animations = ['bounce', 'fade', 'pulse', 'jump', 'waggle', 'spin'];
 let parkLocations = {
-  'dw': [28.417839, -81.581235],
-  'bg': [37.23416573, -76.63999744],
-  'kd': [37.837329984, -77.440331572]
+  dw: [28.417839, -81.563808],
+  bg: [37.23416573, -76.63999744],
+  kd: [37.837329984, -77.440331572]
 };
 
 const duration = Math.floor(Math.random() * 3) + 1;
@@ -16,12 +16,15 @@ const delay = Math.floor(Math.random()) * 0.5;
 const interationCount = 'infinite';
 
 export default class App extends React.Component {
-  state = {
-    location: null,
-    errorMessage: null,
-    locations: null,
-    coords: []
-  };
+  constructor() {
+    super();
+    this.state = {
+      location: null,
+      errorMessage: null,
+      locations: [...testLocations],
+      coords: []
+    };
+  }
 
   componentWillMount() {
     // Removed emulator detection
@@ -42,15 +45,14 @@ export default class App extends React.Component {
       }
     }
 
-    navigator.geolocation.watchPosition(async (location) => {
-      // let location = await Location.getCurrentPositionAsync({});
-      let locations = this.createRandomMarkers(location.coords, 20, 10000);
+    navigator.geolocation.getCurrentPosition(location => {
+      let locations = this.createRandomMarkers(location.coords, 0, 50000);
 
       // center random markers around Washington DC
       // let locations = this.createRandomMarkers({latitude: 38.889931, longitude: -77.009003}, 20, 10000);
 
       this.setState({
-        locations,
+        locations: [...this.state.locations, ...locations],
         location,
 
         // center around Washington DC
@@ -69,7 +71,6 @@ export default class App extends React.Component {
       let y0 = center.latitude;
 
       let r = radius / 111300; // = 100 meters
-
       let u = Math.random();
       let v = Math.random();
       let w = r * Math.sqrt(u);
@@ -82,7 +83,7 @@ export default class App extends React.Component {
       let foundLongitude = x0 + x1;
 
       newMarkers.push({
-        id: Math.floor(Math.random() * 1000),
+        id: i,
         // coords: [33.946, -91.000],
         coords: [foundLatitude, foundLongitude],
         icon: emoji[Math.floor(Math.random() * emoji.length)],
@@ -103,7 +104,7 @@ export default class App extends React.Component {
 
   updateMarkerSpeed = () => {
     // console.log('altering markers');
-    let updatedLocations = this.state.locations.map(location => {
+    let updatedLocations = this.state.locations.map((location) => {
       let updatedLocation = Object.assign({}, location, {
         animation: Object.assign({}, location.animation, {
           duration: location.animation.duration + 0.5
@@ -114,12 +115,12 @@ export default class App extends React.Component {
     this.setState({ locations: updatedLocations });
   };
 
-  onMapClicked = coords => {
+  onMapClicked = (coords) => {
     console.log(`Map Clicked: app received: ${coords}`);
     this.showAlert('Map Clicked', `Coordinates = ${coords}`);
   };
 
-  onMarkerClicked = id => {
+  onMarkerClicked = (id) => {
     console.log(`Marker Clicked: ${id}`);
     this.showAlert('Marker Clicked', `Marker ID = ${id}`);
   };
@@ -133,17 +134,42 @@ export default class App extends React.Component {
     );
   };
 
-  getMapCallback=(map)=>{
+  getMapCallback = (map) => {
     console.log('getMapCallback received : ', map);
-  }
-
-  onZoomEnd=(event)=>{
+  };
+  onZoomLevelsChange = (event) => {
+    console.log('onZoomLevelsChange received : ', event);
+  };
+  onResize = (event) => {
+    console.log('onResize received : ', event);
+  };
+  onUnload = (event) => {
+    console.log('onUnload received : ', event);
+  };
+  onViewReset = (event) => {
+    console.log('onViewReset received : ', event);
+  };
+  onLoad = (event) => {
+    console.log('onLoad received : ', event);
+  };
+  onZoomStart = (event) => {
     console.log('onZoomEnd received : ', event);
-  }
-
-  onMoveEnd=(event)=>{
+  };
+  onMoveStart = (event) => {
+    console.log('onMoveStart received : ', event);
+  };
+  onZoom = (event) => {
+    console.log('onZoom received : ', event);
+  };
+  onMove = (event) => {
+    console.log('onMove received : ', event);
+  };
+  onZoomEnd = (event) => {
+    console.log('onZoomEnd received : ', event);
+  };
+  onMoveEnd = (event) => {
     console.log('onMoveEnd received : ', event);
-  }
+  };
 
   centerMap = (parkInitials) => {
     console.log(parkInitials);
@@ -182,9 +208,17 @@ export default class App extends React.Component {
           panToLocation={false}
           zoom={5}
           showZoomControls={false}
-/*           getMapCallback={this.getMapCallback}*/
-          onMoveEnd={this.onMoveEnd}
+          onZoomLevelsChange={this.onZoomLevelsChange}
+          onResize={this.onResize}
+          onUnload={this.onUnload}
+          onViewReset={this.onViewReset}
+          onLoad={this.onLoad}
+          onZoomStart={this.onZoomStart}
+          onMoveStart={this.onMoveStart}
+          onZoom={this.onZoom}
+          onMove={this.onMove}
           onZoomEnd={this.onZoomEnd}
+          onMoveEnd={this.onMoveEnd}
         />
         <View
           style={{
@@ -194,9 +228,9 @@ export default class App extends React.Component {
             alignItems: 'center'
           }}
         >
-          <Button onPress={()=>this.centerMap('dw')} text={'🏰'} />
-          <Button onPress={()=>this.centerMap('bg')} text={'🍺'} />
-          <Button onPress={()=>this.centerMap('kd')} text={'👑'} />
+          <Button onPress={() => this.centerMap('dw')} text={'🏰'} />
+          <Button onPress={() => this.centerMap('bg')} text={'🍺'} />
+          <Button onPress={() => this.centerMap('kd')} text={'👑'} />
         </View>
       </SafeAreaView>
     );
